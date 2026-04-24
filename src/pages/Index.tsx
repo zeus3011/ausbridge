@@ -114,7 +114,7 @@ const Hero = () => {
       <Header />
       <div className="container mx-auto relative z-10 h-full flex items-center pt-24">
         <div className="max-w-2xl text-primary-foreground">
-          <p className="text-[11px] tracking-[0.3em] text-gold mb-5 border-l-2 border-gold pl-3">
+          <p className="text-[11px] tracking-[0.3em] text-gold mb-5">
             — {heroSlides[i].eyebrow}
           </p>
           <h1 className="font-bold text-4xl md:text-6xl leading-[1.05] mb-6">
@@ -129,7 +129,7 @@ const Hero = () => {
             <Button variant="hero" size="lg">
               Start Your Free Consultation <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+            <Button variant="outlineLight" size="lg">
               View Pathways
             </Button>
           </div>
@@ -205,9 +205,7 @@ const HowWeWork = () => (
       </div>
       <div className="flex justify-center gap-4 mt-12">
         <Button variant="hero">Explore All Services <ArrowRight className="ml-1 h-4 w-4" /></Button>
-        <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-          Book Consultation
-        </Button>
+        <Button variant="outlinePrimary">Book Consultation</Button>
       </div>
     </div>
   </section>
@@ -281,9 +279,7 @@ const Services = () => (
       </div>
       <div className="flex justify-center gap-4 mt-12">
         <Button variant="hero">Explore All Services <ArrowRight className="ml-1 h-4 w-4" /></Button>
-        <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-          Book Consultation
-        </Button>
+        <Button variant="outlinePrimary">Book Consultation</Button>
       </div>
     </div>
   </section>
