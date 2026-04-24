@@ -16,6 +16,12 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         hero: "bg-gold text-gold-foreground hover:bg-gold/90 rounded-full font-medium shadow-card",
+        outlineLight:
+          "rounded-full border border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary font-medium",
+        outlinePrimary:
+          "rounded-full border border-primary text-primary hover:bg-primary hover:text-primary-foreground font-medium",
+        primaryPill:
+          "rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium",
       },
       size: {
         default: "h-10 px-4 py-2",
