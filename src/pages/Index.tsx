@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import {
   ShieldCheck,
   ClipboardList,
@@ -33,10 +33,15 @@ import serviceEmployer from "@/assets/service-employer.jpg";
 import serviceFamily from "@/assets/service-family.jpg";
 import serviceComplex from "@/assets/service-complex.jpg";
 import aboutAdvisor from "@/assets/about-advisor.jpg";
+import { ConsultationModal } from "@/components/ConsultationModal";
+
+const ConsultationCtx = createContext<() => void>(() => {});
+const useOpenConsultation = () => useContext(ConsultationCtx);
 
 /* ---------- HEADER ---------- */
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const openConsult = useOpenConsultation();
   const links = ["About", "Services", "Success Stories", "Insights", "Contact"];
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-sm">
@@ -58,7 +63,7 @@ const Header = () => {
           <a href="tel:1300123287" className="flex items-center gap-2 text-sm text-primary-foreground/90">
             <Phone className="h-4 w-4" /> 1300 123 AUS
           </a>
-          <Button variant="hero" size="sm">Book Consultation</Button>
+          <Button variant="hero" size="sm" onClick={openConsult}>Book Consultation</Button>
         </div>
         <button onClick={() => setOpen(!open)} className="lg:hidden text-primary-foreground" aria-label="Menu">
           {open ? <X /> : <Menu />}
@@ -71,7 +76,7 @@ const Header = () => {
               {l}
             </a>
           ))}
-          <Button variant="hero" size="sm" className="w-full">Book Consultation</Button>
+          <Button variant="hero" size="sm" className="w-full" onClick={openConsult}>Book Consultation</Button>
         </div>
       )}
     </header>
@@ -96,6 +101,7 @@ const heroSlides = [
 
 const Hero = () => {
   const [i, setI] = useState(0);
+  const openConsult = useOpenConsultation();
   useEffect(() => {
     const t = setInterval(() => setI((p) => (p + 1) % heroSlides.length), 6000);
     return () => clearInterval(t);
@@ -126,7 +132,7 @@ const Hero = () => {
             {heroSlides[i].sub}
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button variant="hero" size="lg">
+            <Button variant="hero" size="lg" onClick={openConsult}>
               Start Your Free Consultation <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
             <Button variant="outlineLight" size="lg">
@@ -180,7 +186,9 @@ const principles = [
   { icon: DollarSign, title: "Transparent Fees", text: "Fixed-scope quotes. No surprises. No hidden charges." },
   { icon: HeartHandshake, title: "Dedicated Support", text: "A single point of contact through your entire matter." },
 ];
-const HowWeWork = () => (
+const HowWeWork = () => {
+  const openConsult = useOpenConsultation();
+  return (
   <section id="about" className="bg-background py-20">
     <div className="container mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
@@ -205,11 +213,12 @@ const HowWeWork = () => (
       </div>
       <div className="flex justify-center gap-4 mt-12">
         <Button variant="hero">Explore All Services <ArrowRight className="ml-1 h-4 w-4" /></Button>
-        <Button variant="outlinePrimary">Book Consultation</Button>
+        <Button variant="outlinePrimary" onClick={openConsult}>Book Consultation</Button>
       </div>
     </div>
   </section>
 );
+};
 
 /* ---------- SERVICES ---------- */
 const services = [
@@ -238,7 +247,9 @@ const services = [
     items: ["Refusal & cancellation review", "AAT and judicial appeals"],
   },
 ];
-const Services = () => (
+const Services = () => {
+  const openConsult = useOpenConsultation();
+  return (
   <section id="services" className="bg-surface py-20">
     <div className="container mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
@@ -279,11 +290,12 @@ const Services = () => (
       </div>
       <div className="flex justify-center gap-4 mt-12">
         <Button variant="hero">Explore All Services <ArrowRight className="ml-1 h-4 w-4" /></Button>
-        <Button variant="outlinePrimary">Book Consultation</Button>
+        <Button variant="outlinePrimary" onClick={openConsult}>Book Consultation</Button>
       </div>
     </div>
   </section>
 );
+};
 
 /* ---------- CLIENT OUTCOMES ---------- */
 const outcomes = [
@@ -416,7 +428,9 @@ const Insights = () => (
 );
 
 /* ---------- CTA ---------- */
-const CTA = () => (
+const CTA = () => {
+  const openConsult = useOpenConsultation();
+  return (
   <section className="bg-primary py-20 text-primary-foreground text-center relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--gold)/0.15),transparent_60%)]" />
     <div className="container mx-auto relative">
@@ -427,12 +441,13 @@ const CTA = () => (
       <p className="text-primary-foreground/80 font-light max-w-xl mx-auto mb-8">
         Book a complimentary 30-minute consultation with a MARA-registered AusBridge advisor. No obligation, no fees — just a clear next step.
       </p>
-      <Button variant="hero" size="lg">
+      <Button variant="hero" size="lg" onClick={openConsult}>
         Book Your Free Consultation <ArrowRight className="ml-1 h-4 w-4" />
       </Button>
     </div>
   </section>
 );
+};
 
 /* ---------- FOOTER ---------- */
 const Footer = () => (
@@ -486,18 +501,24 @@ const Footer = () => (
   </footer>
 );
 
-const Index = () => (
-  <main>
-    <Hero />
-    <TrustStrip />
-    <HowWeWork />
-    <Services />
-    <Outcomes />
-    <About />
-    <Insights />
-    <CTA />
-    <Footer />
-  </main>
-);
+const Index = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  return (
+    <ConsultationCtx.Provider value={() => setModalOpen(true)}>
+      <main>
+        <Hero />
+        <TrustStrip />
+        <HowWeWork />
+        <Services />
+        <Outcomes />
+        <About />
+        <Insights />
+        <CTA />
+        <Footer />
+      </main>
+      <ConsultationModal open={modalOpen} onClose={() => setModalOpen(false)} />
+    </ConsultationCtx.Provider>
+  );
+};
 
 export default Index;
