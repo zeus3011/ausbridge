@@ -20,6 +20,9 @@ import {
   Instagram,
   Menu,
   X,
+  Calendar,
+  BookOpen,
+  PlayCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.jpg";
@@ -36,7 +39,7 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const links = ["About", "Services", "Success Stories", "Insights", "Contact"];
   return (
-    <header className="absolute top-0 left-0 right-0 z-30">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-sm">
       <div className="container mx-auto flex items-center justify-between py-5">
         <a href="#" className="flex items-center gap-3">
           <img src={logo} alt="AusBridge Consultants" className="h-9 w-auto rounded-sm bg-background/90 p-1" />
@@ -85,9 +88,9 @@ const heroSlides = [
   },
   {
     image: heroMelbourne,
-    eyebrow: "REGISTERED MIGRATION ADVISORY",
-    title: ["Clarity, Strategy,", "and a Pathway that Works."],
-    sub: "MARA-registered advisors guiding skilled professionals, families and employers with structured case management.",
+    eyebrow: "YOUR BRIDGE TO AUSTRALIA",
+    title: ["Your Trusted Guide,", "Every Step to Australia"],
+    sub: "Expert mentorship and responsible advice — from first consultation to your new life Down Under.",
   },
 ];
 
@@ -109,7 +112,7 @@ const Hero = () => {
         </div>
       ))}
       <Header />
-      <div className="container mx-auto relative z-10 h-full flex items-center pt-20">
+      <div className="container mx-auto relative z-10 h-full flex items-center pt-24">
         <div className="max-w-2xl text-primary-foreground">
           <p className="text-[11px] tracking-[0.3em] text-gold mb-5 border-l-2 border-gold pl-3">
             — {heroSlides[i].eyebrow}
@@ -252,7 +255,7 @@ const Services = () => (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((s) => (
           <article key={s.title} className="bg-card rounded-lg overflow-hidden shadow-card border border-border/50 flex flex-col">
-            <div className="relative h-52 overflow-hidden">
+            <div className="relative h-72 overflow-hidden">
               <img src={s.img} alt={s.title} loading="lazy" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent" />
               <h3 className="absolute bottom-4 left-5 text-primary-foreground font-semibold text-lg">{s.title}</h3>
@@ -333,7 +336,7 @@ const Outcomes = () => (
 const About = () => (
   <section className="bg-surface py-20">
     <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
-      <div>
+      <div className="lg:pl-16 xl:pl-24">
         <p className="text-[11px] tracking-[0.3em] text-gold mb-4">— ABOUT AUSBRIDGE CONSULTANTS</p>
         <h2 className="font-semibold text-3xl md:text-4xl text-primary leading-tight mb-6">
           Migration advice, delivered with care and rigour
@@ -344,18 +347,73 @@ const About = () => (
         <p className="text-muted-foreground font-light leading-relaxed mb-8">
           Our practice is built on three commitments: transparent fees, principled advice, and a single point of contact through every stage of your case.
         </p>
-        <Button variant="hero">Learn More About Us <ArrowRight className="ml-1 h-4 w-4" /></Button>
+        <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-medium">
+          Learn More About Us <ArrowRight className="ml-1 h-4 w-4" />
+        </Button>
       </div>
       <div className="relative flex justify-center">
-        <div className="relative">
-          <div className="absolute -inset-3 border-2 border-gold/60 rounded-md translate-x-3 translate-y-3" />
-          <img
-            src={aboutAdvisor}
-            alt="AusBridge senior migration advisor"
-            loading="lazy"
-            className="relative rounded-md shadow-elevated max-w-sm w-full"
-          />
+        <img
+          src={aboutAdvisor}
+          alt="AusBridge senior migration advisor"
+          loading="lazy"
+          className="rounded-md shadow-elevated w-full max-w-md"
+        />
+      </div>
+    </div>
+  </section>
+);
+
+/* ---------- INSIGHTS ---------- */
+const insights = [
+  {
+    icon: Calendar,
+    tag: "Update",
+    title: "2025 Skilled Occupation List: What Changed",
+    text: "A breakdown of the new Core Skills Occupation List and what it means for prospective applicants.",
+  },
+  {
+    icon: BookOpen,
+    tag: "Guide",
+    title: "Subclass 482: A Step-by-Step Lodgement Guide",
+    text: "From sponsor accreditation through nomination to the visa application — practical guidance for employers.",
+  },
+  {
+    icon: PlayCircle,
+    tag: "Video",
+    title: "Partner Visa Evidence: What Case Officers Look For",
+    text: "A short walk-through of the four pillars of relationship evidence and how to document them properly.",
+  },
+];
+const Insights = () => (
+  <section id="insights" className="bg-background py-20">
+    <div className="container mx-auto">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-6">
+        <div>
+          <p className="text-[11px] tracking-[0.3em] text-gold mb-3 flex items-center gap-2">
+            <span className="h-px w-6 bg-gold" /> INSIGHTS
+          </p>
+          <h2 className="font-semibold text-3xl md:text-4xl text-primary leading-tight">
+            Updates, guides and<br />analysis
+          </h2>
         </div>
+        <a href="#" className="text-sm font-medium text-primary inline-flex items-center gap-2 hover:text-accent">
+          View All Insights <ArrowRight className="h-4 w-4" />
+        </a>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {insights.map((it) => (
+          <article key={it.title} className="bg-card rounded-lg p-6 border border-border/60 flex flex-col">
+            <span className="inline-flex items-center gap-2 self-start bg-muted text-primary text-xs font-medium px-3 py-1 rounded-full mb-6">
+              <it.icon className="h-3.5 w-3.5 text-accent" />
+              {it.tag}
+            </span>
+            <h3 className="font-semibold text-primary text-lg leading-snug mb-4">{it.title}</h3>
+            <p className="text-sm text-muted-foreground font-light leading-relaxed mb-6 flex-1">{it.text}</p>
+            <a href="#" className="text-sm font-medium text-primary inline-flex items-center gap-2 hover:text-accent">
+              Read more <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -440,6 +498,7 @@ const Index = () => (
     <Services />
     <Outcomes />
     <About />
+    <Insights />
     <CTA />
     <Footer />
   </main>
