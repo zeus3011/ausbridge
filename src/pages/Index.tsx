@@ -136,7 +136,7 @@ const Hero = () => {
               Start Your Free Consultation <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
             <Button variant="outlineLight" size="lg" className="w-full xs:w-auto">
-              View Pathways
+              Explore Visa Options
             </Button>
           </div>
         </div>
