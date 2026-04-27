@@ -211,9 +211,9 @@ const HowWeWork = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center gap-4 mt-12">
-        <Button variant="hero">Explore All Services <ArrowRight className="ml-1 h-4 w-4" /></Button>
-        <Button variant="outlinePrimary" onClick={openConsult}>Book Consultation</Button>
+      <div className="flex flex-col xs:flex-row items-center justify-center gap-4 mt-12 max-w-xs xs:max-w-none mx-auto">
+        <Button variant="hero" className="w-full xs:w-auto">Explore All Services <ArrowRight className="ml-1 h-4 w-4" /></Button>
+        <Button variant="outlinePrimary" onClick={openConsult} className="w-full xs:w-auto">Book Consultation</Button>
       </div>
     </div>
   </section>
@@ -288,9 +288,9 @@ const Services = () => {
           </article>
         ))}
       </div>
-      <div className="flex justify-center gap-4 mt-12">
-        <Button variant="hero">Explore All Services <ArrowRight className="ml-1 h-4 w-4" /></Button>
-        <Button variant="outlinePrimary" onClick={openConsult}>Book Consultation</Button>
+      <div className="flex flex-col xs:flex-row items-center justify-center gap-4 mt-12 max-w-xs xs:max-w-none mx-auto">
+        <Button variant="hero" className="w-full xs:w-auto">Explore All Services <ArrowRight className="ml-1 h-4 w-4" /></Button>
+        <Button variant="outlinePrimary" onClick={openConsult} className="w-full xs:w-auto">Book Consultation</Button>
       </div>
     </div>
   </section>
