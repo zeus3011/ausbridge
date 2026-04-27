@@ -69,6 +69,7 @@ export default {
       },
       fontFamily: {
         sans: ["Poppins", "system-ui", "sans-serif"],
+        serif: ["Georgia", "Times New Roman", "serif"],
       },
       boxShadow: {
         card: "var(--shadow-card)",

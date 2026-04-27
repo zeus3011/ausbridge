@@ -123,7 +123,7 @@ const Hero = () => {
           <p className="text-[11px] tracking-[0.3em] text-gold mb-5">
             — {heroSlides[i].eyebrow}
           </p>
-          <h1 className="font-bold text-4xl md:text-6xl leading-[1.05] mb-6">
+          <h1 className="font-serif font-bold text-4xl md:text-6xl leading-[1.05] mb-6">
             {heroSlides[i].title[0]}
             <br />
             {heroSlides[i].title[1]}
@@ -193,7 +193,7 @@ const HowWeWork = () => {
     <div className="container mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
         <p className="text-[11px] tracking-[0.3em] text-gold mb-3">— HOW WE WORK —</p>
-        <h2 className="font-semibold text-3xl md:text-4xl text-primary mb-4">
+        <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary mb-4">
           An advisory-grade approach to migration
         </h2>
         <p className="text-muted-foreground font-light">
@@ -254,7 +254,7 @@ const Services = () => {
     <div className="container mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
         <p className="text-[11px] tracking-[0.3em] text-gold mb-3">— OUR SERVICES —</p>
-        <h2 className="font-semibold text-3xl md:text-4xl text-primary mb-4">
+        <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary mb-4">
           Visa pathways, expertly managed
         </h2>
         <p className="text-muted-foreground font-light">
@@ -320,7 +320,7 @@ const Outcomes = () => (
     <div className="container mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
         <p className="text-[11px] tracking-[0.3em] text-gold mb-3">— CLIENT OUTCOMES —</p>
-        <h2 className="font-semibold text-3xl md:text-4xl text-primary">
+        <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary">
           Trusted by professionals and families
         </h2>
       </div>
@@ -346,7 +346,7 @@ const About = () => (
     <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
       <div className="lg:pl-16 xl:pl-24">
         <p className="text-[11px] tracking-[0.3em] text-gold mb-4">— ABOUT AUSBRIDGE CONSULTANTS</p>
-        <h2 className="font-semibold text-3xl md:text-4xl text-primary leading-tight mb-6">
+        <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary leading-tight mb-6">
           Migration advice, delivered with care and rigour
         </h2>
         <p className="text-muted-foreground font-light leading-relaxed mb-4">
@@ -400,7 +400,7 @@ const Insights = () => (
           <p className="text-[11px] tracking-[0.3em] text-gold mb-3 flex items-center gap-2">
             <span className="h-px w-6 bg-gold" /> INSIGHTS
           </p>
-          <h2 className="font-semibold text-3xl md:text-4xl text-primary leading-tight">
+          <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary leading-tight">
             Updates, guides and<br />analysis
           </h2>
         </div>
@@ -435,7 +435,7 @@ const CTA = () => {
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--gold)/0.15),transparent_60%)]" />
     <div className="container mx-auto relative">
       <p className="text-[11px] tracking-[0.3em] text-gold mb-4">— BEGIN YOUR JOURNEY —</p>
-      <h2 className="font-bold text-3xl md:text-5xl mb-6 leading-tight">
+      <h2 className="font-serif font-bold text-3xl md:text-5xl mb-6 leading-tight">
         Ready to Move Forward<br />with Clarity?
       </h2>
       <p className="text-primary-foreground/80 font-light max-w-xl mx-auto mb-8">
