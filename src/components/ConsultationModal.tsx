@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { X, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const schema = z.object({
   fullName: z.string().trim().min(1, "Full name is required").max(100),
@@ -45,6 +47,7 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
   const [form, setForm] = useState<FormState>(initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -85,7 +88,7 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = schema.safeParse(form);
     if (!result.success) {
@@ -98,6 +101,22 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
       return;
     }
     setErrors({});
+    setSubmitting(true);
+    const { error } = await supabase.from("consultation_requests").insert({
+      full_name: result.data.fullName,
+      email: result.data.email,
+      phone: result.data.phone,
+      interest: result.data.interest,
+    });
+    setSubmitting(false);
+    if (error) {
+      toast({
+        title: "Submission failed",
+        description: error.message || "Please try again in a moment.",
+        variant: "destructive",
+      });
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -254,9 +273,10 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
               <Button
                 type="submit"
                 size="lg"
+                disabled={submitting}
                 className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium mt-2"
               >
-                Book My Consultation
+                {submitting ? "Submitting..." : "Book My Consultation"}
               </Button>
             </form>
           </div>
