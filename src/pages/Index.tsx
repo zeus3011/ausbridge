@@ -45,25 +45,25 @@ const Header = () => {
   const links = ["About", "Services", "Success Stories", "Insights", "Contact"];
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-sm">
-      <div className="container mx-auto flex items-center justify-between py-5">
-        <a href="#" className="flex items-center gap-3">
-          <img src={logo} alt="AusBridge Consultants" className="h-9 w-auto rounded-sm bg-background/90 p-1" />
-          <span className="hidden md:inline text-[11px] font-medium tracking-[0.2em] text-gold">
+      <div className="container mx-auto flex items-center justify-between py-4 sm:py-5 px-4 gap-2">
+        <a href="#" className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <img src={logo} alt="AusBridge Consultants" className="h-8 sm:h-9 w-auto rounded-sm bg-background/90 p-1 flex-shrink-0" />
+          <span className="hidden md:inline text-[11px] font-medium tracking-[0.2em] text-gold whitespace-nowrap">
             YOUR BRIDGE TO AUSTRALIA
           </span>
         </a>
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-8">
           {links.map((l) => (
-            <a key={l} href={`#${l.toLowerCase().replace(" ", "-")}`} className="text-sm font-medium text-primary-foreground/90 hover:text-gold transition-colors">
+            <a key={l} href={`#${l.toLowerCase().replace(" ", "-")}`} className="text-sm font-medium text-primary-foreground/90 hover:text-gold transition-colors whitespace-nowrap">
               {l}
             </a>
           ))}
         </nav>
-        <div className="hidden lg:flex items-center gap-5">
-          <a href="tel:1300123287" className="flex items-center gap-2 text-sm text-primary-foreground/90">
-            <Phone className="h-4 w-4" /> 1300 123 AUS
+        <div className="hidden lg:flex items-center gap-3 xl:gap-5">
+          <a href="tel:1300123287" className="flex items-center gap-2 text-sm text-primary-foreground/90 whitespace-nowrap">
+            <Phone className="h-4 w-4 flex-shrink-0" /> 1300 123 AUS
           </a>
-          <Button variant="hero" size="sm" onClick={openConsult}>Book Consultation</Button>
+          <Button variant="hero" size="sm" onClick={openConsult} className="whitespace-nowrap">Book Consultation</Button>
         </div>
         <button onClick={() => setOpen(!open)} className="lg:hidden text-primary-foreground" aria-label="Menu">
           {open ? <X /> : <Menu />}
