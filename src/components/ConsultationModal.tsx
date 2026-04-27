@@ -134,7 +134,7 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-6 bg-primary/40 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-[100] flex items-center justify-center px-3 sm:px-4 py-4 sm:py-6 bg-primary/40 backdrop-blur-md animate-fade-in"
       onClick={handleClose}
     >
       <div
@@ -150,7 +150,7 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
         </button>
 
         {submitted ? (
-          <div className="px-8 py-12 text-center">
+          <div className="px-5 sm:px-8 py-10 sm:py-12 text-center">
             <div className="mx-auto mb-5 h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center">
               <CheckCircle2 className="h-8 w-8 text-primary" />
             </div>
@@ -167,7 +167,7 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
             </Button>
           </div>
         ) : (
-          <div className="px-7 py-8 sm:px-8">
+          <div className="px-5 py-6 xs:px-7 xs:py-8 sm:px-8">
             <p className="text-[11px] tracking-[0.3em] text-gold mb-3">— FREE CONSULTATION —</p>
             <h3 className="font-semibold text-2xl text-primary mb-2 leading-tight">
               Book Your Free Consultation
