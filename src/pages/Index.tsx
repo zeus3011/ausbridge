@@ -45,25 +45,25 @@ const Header = () => {
   const links = ["About", "Services", "Success Stories", "Insights", "Contact"];
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-sm">
-      <div className="container mx-auto flex items-center justify-between py-5">
-        <a href="#" className="flex items-center gap-3">
-          <img src={logo} alt="AusBridge Consultants" className="h-9 w-auto rounded-sm bg-background/90 p-1" />
-          <span className="hidden md:inline text-[11px] font-medium tracking-[0.2em] text-gold">
+      <div className="container mx-auto flex items-center justify-between py-4 sm:py-5 px-4 gap-2">
+        <a href="#" className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <img src={logo} alt="AusBridge Consultants" className="h-8 sm:h-9 w-auto rounded-sm bg-background/90 p-1 flex-shrink-0" />
+          <span className="hidden md:inline text-[11px] font-medium tracking-[0.2em] text-gold whitespace-nowrap">
             YOUR BRIDGE TO AUSTRALIA
           </span>
         </a>
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-8">
           {links.map((l) => (
-            <a key={l} href={`#${l.toLowerCase().replace(" ", "-")}`} className="text-sm font-medium text-primary-foreground/90 hover:text-gold transition-colors">
+            <a key={l} href={`#${l.toLowerCase().replace(" ", "-")}`} className="text-sm font-medium text-primary-foreground/90 hover:text-gold transition-colors whitespace-nowrap">
               {l}
             </a>
           ))}
         </nav>
-        <div className="hidden lg:flex items-center gap-5">
-          <a href="tel:1300123287" className="flex items-center gap-2 text-sm text-primary-foreground/90">
-            <Phone className="h-4 w-4" /> 1300 123 AUS
+        <div className="hidden lg:flex items-center gap-3 xl:gap-5">
+          <a href="tel:1300123287" className="flex items-center gap-2 text-sm text-primary-foreground/90 whitespace-nowrap">
+            <Phone className="h-4 w-4 flex-shrink-0" /> 1300 123 AUS
           </a>
-          <Button variant="hero" size="sm" onClick={openConsult}>Book Consultation</Button>
+          <Button variant="hero" size="sm" onClick={openConsult} className="whitespace-nowrap">Book Consultation</Button>
         </div>
         <button onClick={() => setOpen(!open)} className="lg:hidden text-primary-foreground" aria-label="Menu">
           {open ? <X /> : <Menu />}
@@ -107,7 +107,7 @@ const Hero = () => {
     return () => clearInterval(t);
   }, []);
   return (
-    <section className="relative h-[640px] md:h-[680px] overflow-hidden bg-primary">
+    <section className="relative min-h-[640px] md:h-[680px] overflow-hidden bg-primary">
       {heroSlides.map((s, idx) => (
         <div
           key={idx}
@@ -118,24 +118,24 @@ const Hero = () => {
         </div>
       ))}
       <Header />
-      <div className="container mx-auto relative z-10 h-full flex items-center pt-24">
-        <div className="max-w-2xl text-primary-foreground">
-          <p className="text-[11px] tracking-[0.3em] text-gold mb-5">
+      <div className="container mx-auto relative z-10 h-full flex items-center pt-24 px-4">
+        <div className="max-w-2xl text-primary-foreground w-full">
+          <p className="text-[10px] xs:text-[11px] tracking-[0.25em] xs:tracking-[0.3em] text-gold mb-4 sm:mb-5">
             — {heroSlides[i].eyebrow}
           </p>
-          <h1 className="font-serif font-bold text-4xl md:text-6xl leading-[1.05] mb-6">
+          <h1 className="font-serif font-bold text-3xl xs:text-4xl md:text-6xl leading-[1.1] md:leading-[1.05] mb-5 sm:mb-6 break-words">
             {heroSlides[i].title[0]}
             <br />
             {heroSlides[i].title[1]}
           </h1>
-          <p className="text-base md:text-lg font-light text-primary-foreground/85 max-w-xl mb-8">
+          <p className="text-sm xs:text-base md:text-lg font-light text-primary-foreground/85 max-w-xl mb-6 sm:mb-8">
             {heroSlides[i].sub}
           </p>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="hero" size="lg" onClick={openConsult}>
+          <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4">
+            <Button variant="hero" size="lg" onClick={openConsult} className="w-full xs:w-auto">
               Start Your Free Consultation <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button variant="outlineLight" size="lg">
+            <Button variant="outlineLight" size="lg" className="w-full xs:w-auto">
               View Pathways
             </Button>
           </div>
