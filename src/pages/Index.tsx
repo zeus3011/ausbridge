@@ -107,7 +107,7 @@ const Hero = () => {
     return () => clearInterval(t);
   }, []);
   return (
-    <section className="relative h-[640px] md:h-[680px] overflow-hidden bg-primary">
+    <section className="relative min-h-[640px] md:h-[680px] overflow-hidden bg-primary">
       {heroSlides.map((s, idx) => (
         <div
           key={idx}
@@ -118,24 +118,24 @@ const Hero = () => {
         </div>
       ))}
       <Header />
-      <div className="container mx-auto relative z-10 h-full flex items-center pt-24">
-        <div className="max-w-2xl text-primary-foreground">
-          <p className="text-[11px] tracking-[0.3em] text-gold mb-5">
+      <div className="container mx-auto relative z-10 h-full flex items-center pt-24 px-4">
+        <div className="max-w-2xl text-primary-foreground w-full">
+          <p className="text-[10px] xs:text-[11px] tracking-[0.25em] xs:tracking-[0.3em] text-gold mb-4 sm:mb-5">
             — {heroSlides[i].eyebrow}
           </p>
-          <h1 className="font-serif font-bold text-4xl md:text-6xl leading-[1.05] mb-6">
+          <h1 className="font-serif font-bold text-3xl xs:text-4xl md:text-6xl leading-[1.1] md:leading-[1.05] mb-5 sm:mb-6 break-words">
             {heroSlides[i].title[0]}
             <br />
             {heroSlides[i].title[1]}
           </h1>
-          <p className="text-base md:text-lg font-light text-primary-foreground/85 max-w-xl mb-8">
+          <p className="text-sm xs:text-base md:text-lg font-light text-primary-foreground/85 max-w-xl mb-6 sm:mb-8">
             {heroSlides[i].sub}
           </p>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="hero" size="lg" onClick={openConsult}>
+          <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4">
+            <Button variant="hero" size="lg" onClick={openConsult} className="w-full xs:w-auto">
               Start Your Free Consultation <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button variant="outlineLight" size="lg">
+            <Button variant="outlineLight" size="lg" className="w-full xs:w-auto">
               View Pathways
             </Button>
           </div>
