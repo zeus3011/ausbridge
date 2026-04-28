@@ -88,14 +88,14 @@ const heroSlides = [
   {
     image: heroSydney,
     eyebrow: "YOUR BRIDGE TO AUSTRALIA",
-    title: ["Your Trusted Guide,", "Every Step to Australia"],
+    title: ["Clarity, Confidence,", "and a Clear Path to Australia"],
     sub: "Expert mentorship and responsible advice — from first consultation to your new life Down Under.",
   },
   {
     image: heroMelbourne,
     eyebrow: "YOUR BRIDGE TO AUSTRALIA",
-    title: ["Your Trusted Guide,", "Every Step to Australia"],
-    sub: "Expert mentorship and responsible advice — from first consultation to your new life Down Under.",
+    title: ["Study, Work, and Settle —", "We Walk the Journey With You"],
+    sub: "Personalised visa strategies and on-the-ground support to help you thrive in Melbourne and beyond.",
   },
 ];
 
