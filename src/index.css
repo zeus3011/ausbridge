@@ -12,7 +12,7 @@ All colors MUST be HSL.
        Primary  #111B34  -> 222 51% 14%
        Cream    #F6F2EB  -> 36 32% 94%
        Off-white#FEFEFD  -> 60 33% 99%
-       Accent   #9C8D79  -> 33 16% 54%
+       Accent   #D7AF53  -> 43 64% 58%
        Border   #DDDCD9  -> 40 7% 86%
        Subtle   #B8B9B7  -> 80 1% 72%
     */
@@ -37,7 +37,7 @@ All colors MUST be HSL.
     --muted: 40 7% 86%;
     --muted-foreground: 222 15% 35%;
 
-    --accent: 33 16% 54%;
+    --accent: 43 64% 58%;
     --accent-foreground: 60 33% 99%;
 
     --gold: 38 45% 55%;
