@@ -75,8 +75,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Poppins", "system-ui", "sans-serif"],
-        serif: ["Georgia", "Times New Roman", "serif"],
+        sans: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+        serif: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
       },
       boxShadow: {
         card: "var(--shadow-card)",
