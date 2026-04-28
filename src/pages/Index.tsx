@@ -25,7 +25,7 @@ import {
   PlayCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/ausbridge-logo.png";
 import heroSydney from "@/assets/hero-sydney.png";
 import heroMelbourne from "@/assets/hero-melbourne.jpg";
 import serviceSkilled from "@/assets/service-skilled.jpg";
@@ -47,7 +47,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-sm">
       <div className="container mx-auto flex items-center justify-between py-4 sm:py-5 px-4 gap-2">
         <a href="#" className="flex items-center gap-2 sm:gap-3 min-w-0">
-          <img src={logo} alt="AusBridge Consultants" className="h-8 sm:h-9 w-auto rounded-sm bg-background/90 p-1 flex-shrink-0" />
+          <img src={logo} alt="AusBridge Group" className="h-10 sm:h-12 w-auto object-contain bg-background/95 rounded-sm p-1 flex-shrink-0" />
           <span className="hidden md:inline text-[11px] font-medium tracking-[0.2em] text-gold whitespace-nowrap">
             YOUR BRIDGE TO AUSTRALIA
           </span>
@@ -463,7 +463,7 @@ const Footer = () => (
   <footer id="contact" className="bg-primary text-primary-foreground py-14 border-t border-primary-foreground/10">
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
       <div>
-        <img src={logo} alt="AusBridge" className="h-10 w-auto rounded bg-background/95 p-1 mb-4" />
+        <img src={logo} alt="AusBridge Group" className="h-14 w-auto object-contain rounded bg-background/95 p-1 mb-4" />
         <p className="text-[10px] tracking-[0.25em] text-gold font-medium mb-3">YOUR BRIDGE TO AUSTRALIA</p>
         <p className="text-xs text-primary-foreground/70 font-light leading-relaxed">
           AusBridge Consultants — registered migration advisory delivering structured, transparent pathways to Australia.
