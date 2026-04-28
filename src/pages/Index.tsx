@@ -135,8 +135,17 @@ const Hero = () => {
             <Button variant="hero" size="lg" onClick={openConsult} className="w-full xs:w-auto">
               Start Your Free Consultation <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button variant="outlineLight" size="lg" className="w-full xs:w-auto">
-              Explore Visa Options
+            <Button
+              variant="outlineLight"
+              size="lg"
+              className="w-full xs:w-auto"
+              onClick={() =>
+                document
+                  .getElementById("services")
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" })
+              }
+            >
+              View Pathways
             </Button>
           </div>
         </div>
