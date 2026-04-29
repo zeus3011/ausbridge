@@ -89,12 +89,12 @@ const heroSlides = [
     image: heroSydney,
     eyebrow: "YOUR BRIDGE TO AUSTRALIA",
     title: ["Clarity & Confidence,", "Your Path to Australia"],
-    sub: "Expert mentorship and responsible advice — from first consultation to your new life Down Under.",
+    sub: "Expert mentorship and responsible advice â€” from first consultation to your new life Down Under.",
   },
   {
     image: heroMelbourne,
     eyebrow: "YOUR BRIDGE TO AUSTRALIA",
-    title: ["Study, Work, Settle —", "We Guide Every Step"],
+    title: ["Study, Work, Settle â€”", "We Guide Every Step"],
     sub: "Personalised visa strategies and on-the-ground support to help you thrive in Melbourne and beyond.",
   },
 ];
@@ -121,7 +121,7 @@ const Hero = () => {
       <div className="container mx-auto relative z-10 h-full flex items-center pt-24 px-4">
         <div className="max-w-2xl text-primary-foreground w-full">
           <p className="text-[10px] xs:text-[11px] tracking-[0.25em] xs:tracking-[0.3em] text-gold mb-4 sm:mb-5">
-            — {heroSlides[i].eyebrow}
+            â€” {heroSlides[i].eyebrow}
           </p>
           <h1 className="font-serif font-bold text-3xl xs:text-4xl md:text-6xl leading-[1.1] md:leading-[1.05] mb-5 sm:mb-6 break-words">
             {heroSlides[i].title[0]}
@@ -164,6 +164,83 @@ const Hero = () => {
   );
 };
 
+/* ---------- PRICING ---------- */
+const pricingPlans = [
+  {
+    title: "Initial Assessment",
+    price: "Free",
+    period: "30 minutes",
+    description: "Understand your options with a complimentary consultation.",
+    features: [
+      "Eligibility check",
+      "Basic pathway advice",
+      "No obligation",
+    ],
+    buttonText: "Book Free Consultation",
+    variant: "hero",
+  },
+  {
+    title: "Comprehensive Strategy",
+    price: "Custom Quote",
+    period: "per case",
+    description: "Detailed analysis and a step-by-step plan for complex matters.",
+    features: [
+      "In-depth eligibility review",
+      "Personalised visa strategy",
+      "Document checklist & guidance",
+      "Ongoing advisor support",
+      "Fixed fees & no hidden charges",
+    ],
+    buttonText: "Request Custom Quote",
+    variant: "outlinePrimary",
+  },
+];
+
+const Pricing = () => {
+  const openConsult = useOpenConsultation();
+  return (
+    <section id="pricing" className="bg-background py-20">
+      <div className="container mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <p className="text-[11px] tracking-[0.3em] text-gold mb-3">â€” PRICING & PLANS â€”</p>
+          <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary mb-4">
+            Transparent fees, clear value
+          </h2>
+          <p className="text-muted-foreground font-light">
+            Choose the service level that fits your needs, from initial advice to full case management. All fees are upfront with no surprises.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {pricingPlans.map((plan, idx) => (
+            <div key={idx} className="bg-surface rounded-lg p-8 border border-border/50 flex flex-col items-center text-center">
+              <h3 className="font-serif font-semibold text-2xl text-primary mb-3">{plan.title}</h3>
+              <p className="text-[11px] tracking-[0.15em] text-gold font-medium mb-4 uppercase">{plan.period}</p>
+              <p className="font-bold text-5xl text-primary mb-2">{plan.price}</p>
+              <p className="text-sm text-muted-foreground mb-6">{plan.description}</p>
+              <ul className="space-y-3 mb-8 w-full text-left">
+                {plan.features.map((feature, fIdx) => (
+                  <li key={fIdx} className="flex items-center gap-3 text-sm text-primary">
+                    <Check className="h-4 w-4 text-gold flex-shrink-0" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <Button
+                variant={plan.variant as "hero" | "outlinePrimary"}
+                size="lg"
+                className="w-full mt-auto"
+                onClick={openConsult}
+              >
+                {plan.buttonText} {plan.variant === "hero" && <ArrowRight className="ml-1 h-4 w-4" />}
+              </Button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 /* ---------- TRUST STRIP ---------- */
 const trust = [
   { icon: BadgeCheck, title: "MARA Registered", sub: "Licensed migration agent" },
@@ -201,12 +278,12 @@ const HowWeWork = () => {
   <section id="about" className="bg-background py-20">
     <div className="container mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <p className="text-[11px] tracking-[0.3em] text-gold mb-3">— HOW WE WORK —</p>
+        <p className="text-[11px] tracking-[0.3em] text-gold mb-3">â€” HOW WE WORK â€”</p>
         <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary mb-4">
           An advisory-grade approach to migration
         </h2>
         <p className="text-muted-foreground font-light">
-          Five principles that shape every matter we take on — built to give you clarity at every stage.
+          Five principles that shape every matter we take on â€” built to give you clarity at every stage.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
@@ -252,7 +329,7 @@ const services = [
   {
     img: serviceComplex,
     title: "Complex Cases",
-    badge: "REFUSALS · AAT · MINISTERIAL",
+    badge: "REFUSALS Â· AAT Â· MINISTERIAL",
     items: ["Refusal & cancellation review", "AAT and judicial appeals"],
   },
 ];
@@ -262,12 +339,12 @@ const Services = () => {
   <section id="services" className="bg-surface py-20">
     <div className="container mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <p className="text-[11px] tracking-[0.3em] text-gold mb-3">— OUR SERVICES —</p>
+        <p className="text-[11px] tracking-[0.3em] text-gold mb-3">â€” OUR SERVICES â€”</p>
         <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary mb-4">
           Visa pathways, expertly managed
         </h2>
         <p className="text-muted-foreground font-light">
-          From skilled independent migration to complex appeals — a tailored strategy for every case.
+          From skilled independent migration to complex appeals â€” a tailored strategy for every case.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -309,26 +386,26 @@ const Services = () => {
 /* ---------- CLIENT OUTCOMES ---------- */
 const outcomes = [
   {
-    quote: "AusBridge gave us a clear, staged plan from day one. Every fee was disclosed upfront — we always knew where we stood.",
+    quote: "AusBridge gave us a clear, staged plan from day one. Every fee was disclosed upfront â€” we always knew where we stood.",
     name: "Priya & Arjun S.",
-    sub: "Subclass 189 — Software Engineer",
+    sub: "Subclass 189 â€” Software Engineer",
   },
   {
     quote: "Their structured approach to our 482 nomination saved months. The advisor was responsive, precise and genuinely invested.",
     name: "Marcus L.",
-    sub: "Subclass 482 — Hospitality",
+    sub: "Subclass 482 â€” Hospitality",
   },
   {
     quote: "After a refusal elsewhere, AusBridge rebuilt our partner application from the ground up. Approved on first reassessment.",
     name: "Elena & James R.",
-    sub: "Subclass 820/801 — Partner",
+    sub: "Subclass 820/801 â€” Partner",
   },
 ];
 const Outcomes = () => (
   <section id="success-stories" className="bg-background py-20">
     <div className="container mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <p className="text-[11px] tracking-[0.3em] text-gold mb-3">— CLIENT OUTCOMES —</p>
+        <p className="text-[11px] tracking-[0.3em] text-gold mb-3">â€” CLIENT OUTCOMES â€”</p>
         <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary">
           Trusted by professionals and families
         </h2>
@@ -354,12 +431,12 @@ const About = () => (
   <section className="bg-surface py-20">
     <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
       <div className="lg:pl-16 xl:pl-24">
-        <p className="text-[11px] tracking-[0.3em] text-gold mb-4">— ABOUT AUSBRIDGE CONSULTANTS</p>
+        <p className="text-[11px] tracking-[0.3em] text-gold mb-4">â€” ABOUT AUSBRIDGE CONSULTANTS</p>
         <h2 className="font-serif font-semibold text-3xl md:text-4xl text-primary leading-tight mb-6">
           Migration advice, delivered with care and rigour
         </h2>
         <p className="text-muted-foreground font-light leading-relaxed mb-4">
-          For over 15 years, AusBridge Consultants has helped skilled professionals, families and employers navigate Australia's migration framework with clarity. We combine deep regulatory knowledge with a structured case-management process — every matter is led by a registered advisor and supported by a dedicated team.
+          For over 15 years, AusBridge Consultants has helped skilled professionals, families and employers navigate Australia's migration framework with clarity. We combine deep regulatory knowledge with a structured case-management process â€” every matter is led by a registered advisor and supported by a dedicated team.
         </p>
         <p className="text-muted-foreground font-light leading-relaxed mb-8">
           Our practice is built on three commitments: transparent fees, principled advice, and a single point of contact through every stage of your case.
@@ -392,7 +469,7 @@ const insights = [
     icon: BookOpen,
     tag: "Guide",
     title: "Subclass 482: A Step-by-Step Lodgement Guide",
-    text: "From sponsor accreditation through nomination to the visa application — practical guidance for employers.",
+    text: "From sponsor accreditation through nomination to the visa application â€” practical guidance for employers.",
   },
   {
     icon: PlayCircle,
@@ -443,12 +520,12 @@ const CTA = () => {
   <section className="bg-primary py-20 text-primary-foreground text-center relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--gold)/0.15),transparent_60%)]" />
     <div className="container mx-auto relative">
-      <p className="text-[11px] tracking-[0.3em] text-gold mb-4">— BEGIN YOUR JOURNEY —</p>
+      <p className="text-[11px] tracking-[0.3em] text-gold mb-4">â€” BEGIN YOUR JOURNEY â€”</p>
       <h2 className="font-serif font-bold text-3xl md:text-5xl mb-6 leading-tight">
         Ready to Move Forward<br />with Clarity?
       </h2>
       <p className="text-primary-foreground/80 font-light max-w-xl mx-auto mb-8">
-        Book a complimentary 30-minute consultation with a MARA-registered AusBridge advisor. No obligation, no fees — just a clear next step.
+        Book a complimentary 30-minute consultation with a MARA-registered AusBridge advisor. No obligation, no fees â€” just a clear next step.
       </p>
       <Button variant="hero" size="lg" onClick={openConsult}>
         Book Your Free Consultation <ArrowRight className="ml-1 h-4 w-4" />
@@ -466,7 +543,7 @@ const Footer = () => (
         <img src={logo} alt="AusBridge Group" className="h-14 w-auto object-contain rounded bg-background/95 p-1 mb-4" />
         <p className="text-[10px] tracking-[0.25em] text-gold font-medium mb-3">YOUR BRIDGE TO AUSTRALIA</p>
         <p className="text-xs text-primary-foreground/70 font-light leading-relaxed">
-          AusBridge Consultants — registered migration advisory delivering structured, transparent pathways to Australia.
+          AusBridge Consultants â€” registered migration advisory delivering structured, transparent pathways to Australia.
         </p>
       </div>
       <div>
@@ -504,8 +581,8 @@ const Footer = () => (
       </div>
     </div>
     <div className="container mx-auto mt-12 pt-6 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between text-xs font-light text-primary-foreground/60">
-      <p>© 2026 AusBridge Consultants. All rights reserved.</p>
-      <p>Registered Migration Agent · MARN 2218006</p>
+      <p>Â© 2026 AusBridge Consultants. All rights reserved.</p>
+      <p>Registered Migration Agent Â· MARN 2218006</p>
     </div>
   </footer>
 );
@@ -516,6 +593,7 @@ const Index = () => {
     <ConsultationCtx.Provider value={() => setModalOpen(true)}>
       <main>
         <Hero />
+        <Pricing />
         <TrustStrip />
         <HowWeWork />
         <Services />
