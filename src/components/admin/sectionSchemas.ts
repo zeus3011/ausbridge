@@ -234,6 +234,7 @@ export const sectionSchemas: SectionSchema[] = [
       { key: "social.instagram", label: "Instagram URL", type: "text" },
       { key: "copyright", label: "Copyright line", type: "text" },
       { key: "registration_note", label: "Registration note", type: "text" },
+      { key: "compliance", label: "Compliance lines (one per line)", type: "textarea" },
     ],
     lists: [
       {
@@ -245,13 +246,6 @@ export const sectionSchemas: SectionSchema[] = [
           { key: "label", label: "Label", type: "text" },
           { key: "href", label: "Href", type: "text" },
         ],
-      },
-      {
-        key: "compliance",
-        label: "Compliance lines",
-        itemLabel: "Line",
-        titleKey: "value",
-        fields: [{ key: "value", label: "Text", type: "text" }],
       },
     ],
   },
