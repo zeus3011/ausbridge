@@ -495,8 +495,19 @@ const Footer = () => (
           <li>Code of Conduct Aligned</li>
         </ul>
         <div className="flex gap-3 mt-5">
-          {[Linkedin, Facebook, Instagram].map((Ic, i) => (
-            <a key={i} href="#" aria-label="social" className="h-8 w-8 rounded-full border border-primary-foreground/30 flex items-center justify-center hover:border-gold hover:text-gold transition-colors">
+          {[
+            { Ic: Linkedin, href: "#", label: "LinkedIn" },
+            { Ic: Facebook, href: "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2F", label: "Facebook" },
+            { Ic: Instagram, href: "#", label: "Instagram" },
+          ].map(({ Ic, href, label }, i) => (
+            <a
+              key={i}
+              href={href}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              aria-label={label}
+              className="h-8 w-8 rounded-full border border-primary-foreground/30 flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
+            >
               <Ic className="h-3.5 w-3.5" />
             </a>
           ))}
