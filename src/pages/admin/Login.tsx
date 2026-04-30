@@ -17,7 +17,10 @@ export default function AdminLogin() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!loading && user && isAdmin) navigate("/admin", { replace: true });
+    // Redirect any signed-in user to /admin. RequireAdmin will show the
+    // proper "Access denied" screen for non-admins instead of leaving them
+    // stuck on the login page with no feedback.
+    if (!loading && user) navigate("/admin", { replace: true });
   }, [loading, user, isAdmin, navigate]);
 
   const handle = async (e: React.FormEvent) => {
