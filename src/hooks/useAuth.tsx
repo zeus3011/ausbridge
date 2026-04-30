@@ -51,18 +51,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   async function checkAdmin(userId: string) {
-    const { data, error } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle();
+    // Use the SECURITY DEFINER `has_role` RPC so the check bypasses the
+    // user_roles RLS policy (which only lets admins read the table).
+    const { data, error } = await supabase.rpc("has_role", {
+      _user_id: userId,
+      _role: "admin",
+    });
     if (error) {
-      // Non-admins cannot SELECT user_roles (RLS denies); treat as not admin.
       setIsAdmin(false);
       return;
     }
-    setIsAdmin(!!data);
+    setIsAdmin(data === true);
   }
 
   const signOut = async () => {
