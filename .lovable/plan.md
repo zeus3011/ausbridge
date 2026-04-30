@@ -1,54 +1,26 @@
-# Fix: Login succeeds but admin panel never opens
+# Change Font to Georgia for Section Headings
 
-## Root cause
+## Summary
+Apply Georgia font family to specific section headings across the landing page while keeping the rest of the site in Poppins.
 
-Your user (`adityajadon7@gmail.com`, id `6d79fb49-62b2-4297-983d-5098d4e3abe7`) signed up and confirmed email successfully — login at 04:26:56 returned 200. But the `user_roles` table has **no row** for you, so `useAuth.isAdmin` resolves to `false` and `RequireAdmin` blocks the route.
+## Target Headings to Change
 
-The login page only redirects to `/admin` when `isAdmin === true`, which is why you stay on the login screen / see "Access denied".
+1. **Hero Section** - "Your Trusted Guide, Every Step to Australia"
+2. **How We Work** - "An advisory-grade approach to migration"  
+3. **Our Services** - "Visa pathways, expertly managed"
+4. **Client Outcomes** - "Trusted by professionals and families"
+5. **About** - "Migration advice, delivered with care and rigour"
+6. **Insights** - "Updates, guides and analysis"
+7. **CTA** - "Ready to Move Forward with Clarity?"
 
-## Fix
+## Implementation
 
-### 1. Grant admin role (database migration)
+### Step 1: Add Georgia Font to CSS
+Add a custom Georgia font utility class in `src/index.css` for clean reuse.
 
-Insert an `admin` role row for your user:
+### Step 2: Apply Georgia Font to Headings
+Update each target heading in `src/pages/Index.tsx` to use the Georgia font class.
 
-```sql
-insert into public.user_roles (user_id, role)
-values ('6d79fb49-62b2-4297-983d-5098d4e3abe7', 'admin')
-on conflict (user_id, role) do nothing;
-```
-
-### 2. Auto-promote the first user going forward (so this doesn't happen again)
-
-Add a trigger on `auth.users` that grants `admin` to the very first signup only. This mirrors the "first user becomes admin" pattern but keeps it safe (only fires when the table is empty):
-
-```sql
-create or replace function public.handle_first_admin()
-returns trigger
-language plpgsql
-security definer
-set search_path = public
-as $$
-begin
-  if not exists (select 1 from public.user_roles where role = 'admin') then
-    insert into public.user_roles (user_id, role) values (new.id, 'admin');
-  end if;
-  return new;
-end;
-$$;
-
-create trigger on_auth_user_created_first_admin
-  after insert on auth.users
-  for each row execute function public.handle_first_admin();
-```
-
-### 3. Small UX improvement on the login page
-
-Right now the login page only redirects when `isAdmin` becomes true. If a non-admin user signs in, they sit on the login screen with no feedback. Update `src/pages/admin/Login.tsx` to also navigate to `/admin` when `user` exists (the `RequireAdmin` guard will then show the proper "Access denied" message instead of a silent stuck state).
-
-## After applying
-
-- Refresh the page — you should land in the CMS dashboard at `/admin`.
-- Any future signups will NOT become admin automatically (only the first one would have); you'll grant them via the DB or a future "manage admins" screen.
-
-No other files need changes for this fix.
+## Files to Edit
+- `src/index.css` - Add Georgia font utility
+- `src/pages/Index.tsx` - Apply font class to 7 headings
