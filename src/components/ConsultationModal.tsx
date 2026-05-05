@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { X, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -14,9 +14,7 @@ const schema = z.object({
     .min(6, "Phone number is required")
     .max(20, "Phone number too long")
     .regex(/^\+?[0-9\s\-()]+$/, "Use digits, spaces, +, -, ()"),
-  interest: z.enum(["Study", "Work", "PR", "Business", "General"], {
-    errorMap: () => ({ message: "Please select an interest" }),
-  }),
+  interest: z.string().trim().min(1, "Please select an interest"),
   agree: z.literal(true, {
     errorMap: () => ({ message: "You must agree to continue" }),
   }),
@@ -30,21 +28,77 @@ type FormState = {
   agree: boolean;
 };
 
-const initial: FormState = {
-  fullName: "",
-  email: "",
-  phone: "+61 ",
-  interest: "",
-  agree: false,
-};
+interface ModalContent {
+  tagline?: string;
+  heading?: string;
+  subheading?: string;
+  fullNameLabel?: string;
+  fullNamePlaceholder?: string;
+  emailLabel?: string;
+  emailPlaceholder?: string;
+  phoneLabel?: string;
+  phonePlaceholder?: string;
+  defaultPhonePrefix?: string;
+  interestLabel?: string;
+  interestPlaceholder?: string;
+  interestOptions?: string[];
+  consentPrefix?: string;
+  termsLabel?: string;
+  termsLink?: string;
+  privacyLabel?: string;
+  privacyLink?: string;
+  submitButtonText?: string;
+  submittingButtonText?: string;
+  successHeading?: string;
+  successMessage?: string;
+  successCloseText?: string;
+}
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  content?: ModalContent;
 }
 
-export const ConsultationModal = ({ open, onClose }: Props) => {
-  const [form, setForm] = useState<FormState>(initial);
+export const ConsultationModal = ({ open, onClose, content }: Props) => {
+  const defaults = useMemo(
+    () => ({
+      tagline: content?.tagline || "FREE CONSULTATION",
+      heading: content?.heading || "Book Your Free Consultation",
+      subheading: content?.subheading || "Share a few details and an advisor will be in touch.",
+      fullNameLabel: content?.fullNameLabel || "Full Name",
+      fullNamePlaceholder: content?.fullNamePlaceholder || "Jane Smith",
+      emailLabel: content?.emailLabel || "Email",
+      emailPlaceholder: content?.emailPlaceholder || "you@example.com",
+      phoneLabel: content?.phoneLabel || "Phone Number",
+      phonePlaceholder: content?.phonePlaceholder || "+61 400 000 000",
+      defaultPhonePrefix: content?.defaultPhonePrefix || "+61 ",
+      interestLabel: content?.interestLabel || "Interest",
+      interestPlaceholder: content?.interestPlaceholder || "Select an option",
+      interestOptions: content?.interestOptions?.length ? content.interestOptions : ["Study", "Work", "PR", "Business", "General"],
+      consentPrefix: content?.consentPrefix || "I agree to the",
+      termsLabel: content?.termsLabel || "Terms",
+      termsLink: content?.termsLink || "#",
+      privacyLabel: content?.privacyLabel || "Privacy Policy",
+      privacyLink: content?.privacyLink || "#",
+      submitButtonText: content?.submitButtonText || "Book My Consultation",
+      submittingButtonText: content?.submittingButtonText || "Submitting...",
+      successHeading: content?.successHeading || "Thank you!",
+      successMessage:
+        content?.successMessage ||
+        "Your consultation request has been received. A MARA-registered advisor will reach out within 1 business day.",
+      successCloseText: content?.successCloseText || "Close",
+    }),
+    [content]
+  );
+
+  const [form, setForm] = useState<FormState>({
+    fullName: "",
+    email: "",
+    phone: defaults.defaultPhonePrefix,
+    interest: "",
+    agree: false,
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -66,9 +120,14 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  useEffect(() => {
+    if (!open) return;
+    setForm((prev) => ({ ...prev, phone: prev.phone.trim() ? prev.phone : defaults.defaultPhonePrefix }));
+  }, [open, defaults.defaultPhonePrefix]);
+
   if (!open) return null;
 
-  const validateField = (name: keyof FormState, value: any) => {
+  const validateField = (name: keyof FormState, value: string | boolean) => {
     const next = { ...form, [name]: value };
     const result = schema.safeParse(next);
     if (result.success) {
@@ -123,7 +182,13 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
   const handleClose = () => {
     onClose();
     setTimeout(() => {
-      setForm(initial);
+      setForm({
+        fullName: "",
+        email: "",
+        phone: defaults.defaultPhonePrefix,
+        interest: "",
+        agree: false,
+      });
       setErrors({});
       setSubmitted(false);
     }, 200);
@@ -154,32 +219,26 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
             <div className="mx-auto mb-5 h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center">
               <CheckCircle2 className="h-8 w-8 text-primary" />
             </div>
-            <h3 className="font-semibold text-2xl text-primary mb-3">Thank you!</h3>
-            <p className="text-sm font-light text-muted-foreground leading-relaxed mb-6">
-              Your consultation request has been received. A MARA-registered advisor will reach out within 1 business day.
-            </p>
+            <h3 className="font-semibold text-2xl text-primary mb-3">{defaults.successHeading}</h3>
+            <p className="text-sm font-light text-muted-foreground leading-relaxed mb-6">{defaults.successMessage}</p>
             <Button
               onClick={handleClose}
               className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
               size="lg"
             >
-              Close
+              {defaults.successCloseText}
             </Button>
           </div>
         ) : (
           <div className="px-5 py-6 xs:px-7 xs:py-8 sm:px-8">
-            <p className="text-[11px] tracking-[0.3em] text-gold mb-3">— FREE CONSULTATION —</p>
-            <h3 className="font-semibold text-2xl text-primary mb-2 leading-tight">
-              Book Your Free Consultation
-            </h3>
-            <p className="text-sm font-light text-muted-foreground mb-6">
-              Share a few details and an advisor will be in touch.
-            </p>
+            <p className="text-[11px] tracking-[0.3em] text-gold mb-3">- {defaults.tagline} -</p>
+            <h3 className="font-semibold text-2xl text-primary mb-2 leading-tight">{defaults.heading}</h3>
+            <p className="text-sm font-light text-muted-foreground mb-6">{defaults.subheading}</p>
 
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
               <div>
                 <label className="block text-xs font-medium text-primary mb-1.5">
-                  Full Name <span className="text-destructive">*</span>
+                  {defaults.fullNameLabel} <span className="text-destructive">*</span>
                 </label>
                 <input
                   type="text"
@@ -189,14 +248,14 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
                     validateField("fullName", e.target.value);
                   }}
                   className={`${inputBase} ${errors.fullName ? "border-destructive" : "border-border"}`}
-                  placeholder="Jane Smith"
+                  placeholder={defaults.fullNamePlaceholder}
                 />
                 {errors.fullName && <p className="text-xs text-destructive mt-1">{errors.fullName}</p>}
               </div>
 
               <div>
                 <label className="block text-xs font-medium text-primary mb-1.5">
-                  Email <span className="text-destructive">*</span>
+                  {defaults.emailLabel} <span className="text-destructive">*</span>
                 </label>
                 <input
                   type="email"
@@ -206,14 +265,14 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
                     validateField("email", e.target.value);
                   }}
                   className={`${inputBase} ${errors.email ? "border-destructive" : "border-border"}`}
-                  placeholder="you@example.com"
+                  placeholder={defaults.emailPlaceholder}
                 />
                 {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
               </div>
 
               <div>
                 <label className="block text-xs font-medium text-primary mb-1.5">
-                  Phone Number <span className="text-destructive">*</span>
+                  {defaults.phoneLabel} <span className="text-destructive">*</span>
                 </label>
                 <input
                   type="tel"
@@ -223,14 +282,14 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
                     validateField("phone", e.target.value);
                   }}
                   className={`${inputBase} ${errors.phone ? "border-destructive" : "border-border"}`}
-                  placeholder="+61 400 000 000"
+                  placeholder={defaults.phonePlaceholder}
                 />
                 {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
               </div>
 
               <div>
                 <label className="block text-xs font-medium text-primary mb-1.5">
-                  Interest <span className="text-destructive">*</span>
+                  {defaults.interestLabel} <span className="text-destructive">*</span>
                 </label>
                 <select
                   value={form.interest}
@@ -240,12 +299,14 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
                   }}
                   className={`${inputBase} ${errors.interest ? "border-destructive" : "border-border"}`}
                 >
-                  <option value="" disabled>Select an option</option>
-                  <option value="Study">Study</option>
-                  <option value="Work">Work</option>
-                  <option value="PR">PR</option>
-                  <option value="Business">Business</option>
-                  <option value="General">General</option>
+                  <option value="" disabled>
+                    {defaults.interestPlaceholder}
+                  </option>
+                  {defaults.interestOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
                 </select>
                 {errors.interest && <p className="text-xs text-destructive mt-1">{errors.interest}</p>}
               </div>
@@ -261,10 +322,14 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
                   className="mt-0.5 h-4 w-4 rounded border-border accent-[hsl(var(--primary))]"
                 />
                 <span className="text-xs text-muted-foreground font-light leading-relaxed">
-                  I agree to the{" "}
-                  <a href="#" className="text-primary font-medium underline-offset-2 hover:underline">Terms</a>{" "}
+                  {defaults.consentPrefix}{" "}
+                  <a href={defaults.termsLink} className="text-primary font-medium underline-offset-2 hover:underline">
+                    {defaults.termsLabel}
+                  </a>{" "}
                   &{" "}
-                  <a href="#" className="text-primary font-medium underline-offset-2 hover:underline">Privacy Policy</a>
+                  <a href={defaults.privacyLink} className="text-primary font-medium underline-offset-2 hover:underline">
+                    {defaults.privacyLabel}
+                  </a>
                   <span className="text-destructive"> *</span>
                 </span>
               </label>
@@ -276,7 +341,7 @@ export const ConsultationModal = ({ open, onClose }: Props) => {
                 disabled={submitting}
                 className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium mt-2"
               >
-                {submitting ? "Submitting..." : "Book My Consultation"}
+                {submitting ? defaults.submittingButtonText : defaults.submitButtonText}
               </Button>
             </form>
           </div>
